@@ -1,22 +1,35 @@
 ---
-title: "Enunciados_T1TD"
+title: "Enunciados de los ejercicios"
 format: html
 editor: visual
 ---
 
-## Primer ejercicio
+### Ejercicio 1
 
-He terminado los exámenes finales del colegio y hay 4 asignaturas que no sé si terminaré aprobando o no. Las notas salen en 4 semanas pero mis padres quieren saber ya cuantas asignaturas creo que voy a suspender. Por cada asignatura que diga que voy a suspender me castigarán 1 fin de semana. Sin embargo, si termino suspendiendo más asignaturas de las que les dije, me castigarán dos semanas por cada asignatura suspensa de más respecto a la predicción después de que salgan las notas.
-Esto crea la siguiente tabla de decisión siendo los resultados el número de fin de semanas de castigo (denotamos Di al número de asignaturas que digo que suspenderé y Ri al número real de asignaturas suspensas).
+Dada la siguiente tabla de decisión:
 
 $$
 \begin{array}{|c|c|c|c|c|c|}
 \hline
  & R_0 & R_1 & R_2 & R_3 & R_4\\ \hline
-\ D_0 & 4 & 4 & 4 & 4 & 4 \\ \hline
-\ D_1 & 5 & 3 & 3 & 3 & 3 \\ \hline
-\ D_2 & 6 & 4 & 2 & 2 & 2 \\ \hline
-\ D_3 & 7 & 5 & 3 & 1 & 1 \\ \hline
-\ D_4 & 8 & 6 & 4 & 2 & 0 \\ \hline
+\ V_0 & 1 & 5 & 2 & 3 & 3 \\ \hline
+\ V_1 & 3 & 3 & 3 & 3 & 3 \\ \hline
+\ V_2 & 8 & 2 & 2 & 1 & 5 \\ \hline
+\ V_3 & 4 & 5 & 4 & 3 & 2 \\ \hline
+\ V_4 & 8 & 9 & 3 & 2 & 0 \\ \hline
 \end{array}
 $$
+Responda razonadamente a las siguientes cuestiones
+
+a) ¿Es la alternativa $V_1$ óptima para alguno de los métodos en situación desfavorable?
+
+b) ¿Elige el criterio de Wald en situación favorable la misma alternativa que el criterio optimista en situación desfavorable?
+
+c) ¿Alguno de los criterios elige la misma alternativa en situación favorable y en situación desfavorable?
+
+d) ¿Es la alternativa $V_5$ óptima según el criterio de Savage en alguna situación?
+
+e) ¿Algún criterio presenta múltiples soluciones óptimas?
+
+
+### Ejercicio 2
