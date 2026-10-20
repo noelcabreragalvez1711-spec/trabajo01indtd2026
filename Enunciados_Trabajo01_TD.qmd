@@ -1,6 +1,9 @@
 ---
-title: "Enunciados de los ejercicios"
-format: html
+title: "Enunciados de los problemas"
+author: "Noel Cabrera Gálvez"
+format: 
+ html: default
+ pdf: default
 editor: visual
 ---
 
@@ -34,12 +37,11 @@ e) Al menos un criterio presenta múltiples alternativas óptimas.
 
 ### Ejercicio 2
 
-Ramón tiene un hijo que le ha pedido apuntarse a clases de teatro. Estas clases durarán como máximo hasta que acabe el curso dentro de 6 meses, aunque existe la posibilidad de que, debido al trabajo, la familia de Ramón se tenga que mudar dentro de 3 meses y su hijo tenga que dejar las clases.
-Tiene la opción de apuntarlo a la escuela "El Teatrillo" en la que paga una mensualidad de 22€ por las clases.
-Puede apuntarlo también a la escuela "La máscara" en la que tiene que pagar directamente 100€ por los 6 meses (no reembolsables).
+Ramón tiene un hijo que le ha pedido apuntarse a clases de teatro. Estas clases durarán como máximo hasta que acabe el curso dentro de 6 meses, aunque existe la posibilidad de que, debido al trabajo de Ramón, él y su familia se tengan que mudar dentro de 3 meses y su hijo tenga que dejar las clases. 
+Tiene la opción de apuntarlo a la escuela "El teatrillo" en la que paga una mensualidad de 22€ por las clases. 
+Puede apuntarlo también a la escuela "La máscara" en la que tiene que pagar directamente 100€ por los 6 meses de clases (no reembolsables). 
 Existe una tercera escuela, "Deluxe", de las mejores de la ciudad, en la que ofrecen un primer mes de prueba gratis, tras el cual, si el alumno quiere continuar, tendrá que pagar 25€ mensuales, incluyendo el primer mes de prueba.
-Ramón conoce a su hijo y sabe que es posible que terminen no gustándole las clases y las acabe abandonando a la primera semana.
-A Ramón no le importa demasiado el bienestar de su hijo pero sabe que negarse a pagarle las clases puede causar problemas en casa, luego lo único que quiere es minimizar el gasto que éstas puedan suponer.
+Ramón conoce a su hijo y sabe que es posible que terminen no gustándole las clases y las acabe abandonando a la primera semana. A Ramón no le importa demasiado el bienestar de su hijo pero sabe que negarse a pagarle las clases puede causar problemas en casa, luego lo único que quiere es minimizar el gasto que éstas puedan suponer.
 
 
 En base al enunciado responda razonadamente a las siguientes cuestiones:
@@ -47,7 +49,7 @@ En base al enunciado responda razonadamente a las siguientes cuestiones:
 
 a) "La máscara" es la escuela seleccionada por el mayor número de criterios.
 
-b) Si desde la empresa en la que trabaja confirman a Ramón que, efectivamente, tiene que mudarse con su familia dentro de 3 meses, esto alteraría la escuela seleccionada por el criterio de Wald.
+b) Si desde la empresa en la que trabaja Ramón le confirman que, efectivamente, tiene que mudarse con su familia dentro de 3 meses, esto alteraría la escuela seleccionada por el criterio de Wald.
 
 c) El criterio de Wald es el único que selecciona a "La máscara".
 

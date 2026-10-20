@@ -1,0 +1,153 @@
+---
+title: "Solución de los problemas"
+author: "Noel Cabrera Gálvez"
+format: 
+ html: default
+ pdf: default
+editor: visual
+---
+
+### Ejercicio 1
+
+Dada la siguiente tabla de decisión:
+
+$$\begin{array}{|c|c|c|c|c|c|}
+\hline
+ & R_0 & R_1 & R_2 & R_3 & R_4\\ \hline
+\ V_0 & 1 & 5 & 2 & 3 & 3 \\ \hline
+\ V_1 & 3 & 3 & 3 & 3 & 3 \\ \hline
+\ V_2 & 8 & 2 & 2 & 1 & 5 \\ \hline
+\ V_3 & 4 & 5 & 4 & 3 & 2 \\ \hline
+\ V_4 & 8 & 9 & 3 & 2 & 0 \\ \hline
+\end{array}$$ Responda razonadamente a las siguientes cuestiones:
+
+a)  La alternativa $V_1$ es óptima para alguno de los métodos en situación desfavorable.
+
+b)  El criterio de Wald elige en situación favorable la misma alternativa que el criterio optimista en situación desfavorable.
+
+c)  Al menos uno de los criterios elige la misma alternativa en situación favorable y en situación desfavorable.
+
+d)  La alternativa $V_4$ es óptima según el criterio de Savage en al menos una situación.
+
+e)  Al menos un criterio presenta múltiples alternativas óptimas.
+
+### Solución
+
+Creamos la tabla con la función definidas en el fichero "teoriadecision_funciones_incertidumbre.R".
+
+```{r}
+source("teoriadecision_funciones_incertidumbre.R")
+
+tab_dec=crea.tablaX(c(1,5,2,3,3,
+              3,3,3,3,3,
+              8,2,1,1,5,
+              4,5,4,3,2,
+              8,9,3,2,0),numalternativas = 5,
+              nb_alternativas = c("v0","v1","v2","v3","v4"), 
+              nb_estados = c("e0","e1","e2","e3","e4"))
+```
+
+Resolvemos ahora el ejercicio con los diferentes criterios tanto en situación favorable como desfavorable
+
+```{r}
+#Criterio de Wald
+criterio.Wald(tab_dec,favorable = T)
+criterio.Wald(tab_dec,favorable = F)
+
+#Criterio optimista
+criterio.Optimista(tab_dec,favorable = T)
+criterio.Optimista(tab_dec,favorable = F)
+
+#Criterio de Hurwicz
+criterio.Hurwicz(tab_dec,favorable = T)
+criterio.Hurwicz(tab_dec,favorable = F)
+
+#Criterio de Savage
+criterio.Savage(tab_dec,favorable = T)
+criterio.Savage(tab_dec,favorable = F)
+
+#Criterio de Laplace
+criterio.Laplace(tab_dec,favorable = T)
+criterio.Laplace(tab_dec,favorable = F)
+
+#Criterio del punto ideal
+criterio.PuntoIdeal(tab_dec,favorable=T)
+criterio.PuntoIdeal(tab_dec,favorable = F)
+```
+
+#### Resolución de las cuestiones:
+
+**a) VERDADERO.** Es óptima en situación desfavorable para el criterio del Punto Ideal, el criterio de Savage, el criterio de Hurwitz y el criterio optimista.
+
+**b) FALSO.** El criterio de Wald en situación favorable elige la alternativa $V_1$ mientras que el criterio optimista en situación desfavorable elige la alternativa $V_4$.
+
+**c) VERDADERO.** El criterio de Wald elige a $V_1$, el criterio optimista a $V_4$ y el criterio de Savage elige a $V_3$ tanto en situación favorable como desfavorable.
+
+**d) FALSO.** La alternativa seleccionada por el criterio de Savage en situación favorable es $V_3$ mientras que en situación desfavorable hay un empate entre $V_0$, $V_1$ y $V_3$, luego $V_4$ nunca es seleccionada.
+
+**e) VERDADERO.** Para el criterio de Savage en situación desfavorable existe un empate entre $V_0$, $V_1$ y $V_3$.
+
+
+### Ejercicio 2
+
+Ramón tiene un hijo que le ha pedido apuntarse a clases de teatro. Estas clases durarán como máximo hasta que acabe el curso dentro de 6 meses, aunque existe la posibilidad de que, debido al trabajo de Ramón, él y su familia se tengan que mudar dentro de 3 meses y su hijo tenga que dejar las clases.
+Tiene la opción de apuntarlo a la escuela "El teatrillo" en la que paga una mensualidad de 22€ por las clases.
+Puede apuntarlo también a la escuela "La máscara" en la que tiene que pagar directamente 100€ por los 6 meses de clases (no reembolsables).
+Existe una tercera escuela, "Deluxe", de las mejores de la ciudad, en la que ofrecen un primer mes de prueba gratis, tras el cual, si el alumno quiere continuar, tendrá que pagar 25€ mensuales, incluyendo el primer mes de prueba.
+Ramón conoce a su hijo y sabe que es posible que terminen no gustándole las clases y las acabe abandonando a la primera semana. A Ramón no le importa demasiado el bienestar de su hijo pero sabe que negarse a pagarle las clases puede causar problemas en casa, luego lo único que quiere es minimizar el gasto que éstas puedan suponer.
+
+En base al enunciado responda razonadamente a las siguientes cuestiones:
+
+a)  "La máscara" es la escuela seleccionada por el mayor número de criterios.
+
+b)  Si desde la empresa en la que trabaja Ramón le confirman que, efectivamente, tiene que mudarse con su familia dentro de 3 meses, esto alteraría la escuela seleccionada por el criterio de Wald.
+
+c)  El criterio de Wald es el único que selecciona a "La máscara".
+
+d)  La política del mes de prueba gratuito ayuda a la escuela "Deluxe" a ser seleccionada por al menos un criterio.
+
+e)  La escuela "El Teatrillo" es seleccionada por el criterio de Laplace por presentar el menor gasto medio mensual.
+
+### Solución
+
+En base al enunciado, sabemos que si el niño deja las clases a la primera semana de haberlas empezado, Ramón tendrá aún así que pagar el primer mes; luego pagaría 22€ en "El teatrillo", 0€ en la escuela "Deluxe" debido a la política del primer mes de prueba gratuito y 100€ en "La máscara".
+Si el niño continúa las clases, existe la posibilidad de que esté obligado a dejarlas después de 3 meses debido a que su familia tenga que mudarse por el trabajo de Ramón. En ese caso, Ramón tendría que pagar 66€ en "El teatrillo", 75€ en la escuela "Deluxe" debido a que tendría que pagar el primer mes por haber superado la prueba, y 100€ en "La máscara".
+Finalmente, si el hijo de Ramón da los 6 meses de clases con normalidad, tendría que pagar 132€ en "El teatrillo", 150€ en la "Deluxe" y 100€ en "La máscara".
+
+En base a todo esto construimos la tabla de decisión:
+
+```{r}
+tab_2=crea.tablaX(c(22,66,132,
+                      100,100,100,
+                      0,75,150),numalternativas = 3,
+              nb_alternativas = c("El teatrillo","La máscara","Deluxe"), 
+              nb_estados = c("Abandona","Mudanza","Nada"))
+```
+
+La tabla de decisión quedaría tal que así:
+
+$$\begin{array}{|c|c|c|c|c|c|}
+\hline
+ & Abandona & Mudanza & Nada\\ \hline
+\text{El teatrillo} & 22 & 66 & 132 \\ \hline
+\text{La máscara} & 100 & 100 & 100 \\ \hline
+\text{Deluxe} & 0 & 75 & 150 \\ \hline
+\end{array}$$
+
+Resolvemos el problema conjuntamente con la función que calcula todos los criterios (con favorable=F ya que se trata de costes y no beneficios)
+
+```{r}
+criterio.Todos(tab_2,favorable = F)
+```
+
+#### Resolución de las cuestiones:
+
+**a) FALSO.** La escuela seleccionada por el mayor número de criterios es "El teatrillo", seleccionada por 4 de los 6 criterios.
+
+**b) VERDADERO.** Al eliminar la posibilidad de pagar los 6 meses de escuela, el criterio de Wald pasaría a seleccionar a "El teatrillo", ya que se trataría del menor gasto dentro de la peor situación, que serían 66€ si el hijo no abandona las clases.
+
+**c) VERDADERO.** "La máscara" solo es seleccionada por un criterio, y ese es el criterio de Wald.
+
+**d) VERDADERO.** Esa política permite crear un escenario en el que Ramón pagaría 0€, siendo esta la menor cantidad que puede pagar, dándole ventaja sobre el resto de escuelas para ser seleccionada por el criterio optimista.
+
+**e) FALSO** El gasto medio mensual depende del estado de la naturaleza que ocurra. De hecho, en el estado en el que Ramón paga los 6 meses de clases, la escuela que presenta menor gasto medio mensual es "La máscara", con aproximadamente 16,6€ al mes. El criterio de Laplace selecciona a "El teatrillo" por ser el que presenta menor gasto medio entre los 3 estados de la naturaleza posible
