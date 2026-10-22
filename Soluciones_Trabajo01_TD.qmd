@@ -1,16 +1,52 @@
 ---
 title: "Solución de los problemas"
 author: "Noel Cabrera Gálvez"
-format: 
- html: default
- pdf: default
-editor: visual
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-fold: false
+    df-print: kable
+    embed-resources: true
+  typst:
+    fig-format: png
+    toc: true
+    number-sections: true
+    df-print: kable
+    papersize: a4
 ---
 
-### Ejercicio 1
+Instalación previa de paquetes
 
-Dada la siguiente tabla de decisión:
+```{r}
+#install.packages("remotes")
+remotes::install_github("calote/TDecisionCodigo")
+library(TDecisionCodigo)
+```
 
+## Ejercicio 1
+
+Una empresa está analizando cuál de las estrategias disponibles ($V_0, V_1, V_2, V_3, V_4$) llevar a cabo en función de los posibles escenarios de mercado que podrían darse en el próximo trimestre ($R_0, R_1, R_2, R_3, R_4$).La matriz de resultados asociada a cada combinación de alternativa y estado de la naturaleza es la siguiente:
+
+::: {.content-visible when-format="typst"}
+```{=typst}
+#align(center)[
+  #table(
+    columns: 6,
+    align: center,
+    [], [$R_0$], [$R_1$], [$R_2$], [$R_3$], [$R_4$],
+    [$V_0$], [1], [5], [2], [3], [3],
+    [$V_1$], [3], [3], [3], [3], [3],
+    [$V_2$], [8], [2], [2], [1], [5],
+    [$V_3$], [4], [5], [4], [3], [2],
+    [$V_4$], [8], [9], [3], [2], [0]
+  )
+]
+```
+:::
+
+::: {.content-visible when-format="html"}
 $$\begin{array}{|c|c|c|c|c|c|}
 \hline
  & R_0 & R_1 & R_2 & R_3 & R_4\\ \hline
@@ -19,7 +55,11 @@ $$\begin{array}{|c|c|c|c|c|c|}
 \ V_2 & 8 & 2 & 2 & 1 & 5 \\ \hline
 \ V_3 & 4 & 5 & 4 & 3 & 2 \\ \hline
 \ V_4 & 8 & 9 & 3 & 2 & 0 \\ \hline
-\end{array}$$ Responda razonadamente a las siguientes cuestiones:
+\end{array}$$
+:::
+
+Al revisar el informe técnico, el analista no dejó especificado si los datos de la matriz corresponden a beneficios (matriz de ingresos/ganancias) o a costes (matriz de pérdidas/gastos).
+Responda razonadamente a las siguientes cuestiones:
 
 a)  La alternativa $V_1$ es óptima para alguno de los métodos en situación desfavorable.
 
@@ -33,10 +73,9 @@ e)  Al menos un criterio presenta múltiples alternativas óptimas.
 
 ### Solución
 
-Creamos la tabla con la función definidas en el fichero "teoriadecision_funciones_incertidumbre.R".
+Creamos la tabla con la función definida en el fichero "teoriadecision_funciones_incertidumbre.R".
 
 ```{r}
-source("teoriadecision_funciones_incertidumbre.R")
 
 tab_dec=crea.tablaX(c(1,5,2,3,3,
               3,3,3,3,3,
@@ -47,37 +86,62 @@ tab_dec=crea.tablaX(c(1,5,2,3,3,
               nb_estados = c("e0","e1","e2","e3","e4"))
 ```
 
-Resolvemos ahora el ejercicio con los diferentes criterios tanto en situación favorable como desfavorable
+Resolvemos ahora el ejercicio suponiendo tanto que la matriz es de costes como de beneficios.
 
 ```{r}
-#Criterio de Wald
-criterio.Wald(tab_dec,favorable = T)
-criterio.Wald(tab_dec,favorable = F)
+#Criterio de Wald en caso favorable
+Wald_fav=criterio.Wald(tab_dec,favorable = T)
+Wald_fav$AlternativaOptima
 
-#Criterio optimista
-criterio.Optimista(tab_dec,favorable = T)
-criterio.Optimista(tab_dec,favorable = F)
+#Criterio de Wald en caso desfavorable
+Wald_des=criterio.Wald(tab_dec,favorable = F)
+Wald_des$AlternativaOptima
 
-#Criterio de Hurwicz
-criterio.Hurwicz(tab_dec,favorable = T)
-criterio.Hurwicz(tab_dec,favorable = F)
+#Criterio optimista en caso favorable
+Opt_fav=criterio.Optimista(tab_dec,favorable = T)
+Opt_fav$AlternativaOptima
 
-#Criterio de Savage
-criterio.Savage(tab_dec,favorable = T)
-criterio.Savage(tab_dec,favorable = F)
+#Criterio optimista en caso desfavorable
+Opt_des=criterio.Optimista(tab_dec,favorable = F)
+Opt_des$AlternativaOptima
 
-#Criterio de Laplace
-criterio.Laplace(tab_dec,favorable = T)
-criterio.Laplace(tab_dec,favorable = F)
+#Criterio de Hurwicz en caso favorable
+Hur_fav=dibuja.criterio.Hurwicz_Intervalos(tab_dec,favorable = T,mostrarGrafico = T)
+Hur_fav
 
-#Criterio del punto ideal
-criterio.PuntoIdeal(tab_dec,favorable=T)
-criterio.PuntoIdeal(tab_dec,favorable = F)
+#Criterio de Hurwicz en caso desfavorable
+Hur_des=dibuja.criterio.Hurwicz_Intervalos(tab_dec,favorable = F,mostrarGrafico = T)
+Hur_des
+
+
+#Criterio de Savage en caso favorable
+Sav_fav=criterio.Savage(tab_dec,favorable = T)
+Sav_fav$AlternativaOptima
+
+#Criterio de Savage en caso desfavorable
+Sav_des=criterio.Savage(tab_dec,favorable = F)
+Sav_des$AlternativaOptima
+
+#Criterio de Laplace en caso favorable
+Lap_fav=criterio.Laplace(tab_dec,favorable = T)
+Lap_fav$AlternativaOptima
+
+#Criterio de Laplace en caso desfavorable
+Lap_des=criterio.Laplace(tab_dec,favorable = F)
+Lap_des$AlternativaOptima
+
+#Criterio del punto ideal en caso favorable
+PI_fav=criterio.PuntoIdeal(tab_dec,favorable=T)
+PI_fav$AlternativaOptima
+
+#Criterio del punto ideal en caso desfavorable
+PI_des=criterio.PuntoIdeal(tab_dec,favorable = F)
+PI_des$AlternativaOptima
 ```
 
 #### Resolución de las cuestiones:
 
-**a) VERDADERO.** Es óptima en situación desfavorable para el criterio del Punto Ideal, el criterio de Savage, el criterio de Hurwitz y el criterio optimista.
+**a) VERDADERO.** Es óptima en situación desfavorable para el criterio del Punto Ideal, el criterio de Savage, el criterio de Hurwitz para $\alpha$ en el intervalo $[0.5,0.8]$ y el criterio optimista.
 
 **b) FALSO.** El criterio de Wald en situación favorable elige la alternativa $V_1$ mientras que el criterio optimista en situación desfavorable elige la alternativa $V_4$.
 
@@ -88,13 +152,10 @@ criterio.PuntoIdeal(tab_dec,favorable = F)
 **e) VERDADERO.** Para el criterio de Savage en situación desfavorable existe un empate entre $V_0$, $V_1$ y $V_3$.
 
 
-### Ejercicio 2
 
-Ramón tiene un hijo que le ha pedido apuntarse a clases de teatro. Estas clases durarán como máximo hasta que acabe el curso dentro de 6 meses, aunque existe la posibilidad de que, debido al trabajo de Ramón, él y su familia se tengan que mudar dentro de 3 meses y su hijo tenga que dejar las clases.
-Tiene la opción de apuntarlo a la escuela "El teatrillo" en la que paga una mensualidad de 22€ por las clases.
-Puede apuntarlo también a la escuela "La máscara" en la que tiene que pagar directamente 100€ por los 6 meses de clases (no reembolsables).
-Existe una tercera escuela, "Deluxe", de las mejores de la ciudad, en la que ofrecen un primer mes de prueba gratis, tras el cual, si el alumno quiere continuar, tendrá que pagar 25€ mensuales, incluyendo el primer mes de prueba.
-Ramón conoce a su hijo y sabe que es posible que terminen no gustándole las clases y las acabe abandonando a la primera semana. A Ramón no le importa demasiado el bienestar de su hijo pero sabe que negarse a pagarle las clases puede causar problemas en casa, luego lo único que quiere es minimizar el gasto que éstas puedan suponer.
+## Ejercicio 2
+
+Ramón tiene un hijo que le ha pedido apuntarse a clases de teatro. Estas clases durarán como máximo hasta que acabe el curso dentro de 6 meses, aunque existe la posibilidad de que, debido al trabajo de Ramón, él y su familia se tengan que mudar dentro de 3 meses y su hijo tenga que dejar las clases. Tiene la opción de apuntarlo a la escuela "El teatrillo" en la que paga una mensualidad de 22€ por las clases. Puede apuntarlo también a la escuela "La máscara" en la que tiene que pagar directamente 100€ por los 6 meses de clases (no reembolsables). Existe una tercera escuela, "Deluxe", de las mejores de la ciudad, en la que ofrecen un primer mes de prueba gratis, tras el cual, si el alumno quiere continuar, tendrá que pagar 25€ mensuales, incluyendo el primer mes de prueba. Ramón conoce a su hijo y sabe que es posible que terminen no gustándole las clases y las acabe abandonando a la primera semana. A Ramón no le importa demasiado el bienestar de su hijo pero sabe que negarse a pagarle las clases puede causar problemas en casa, luego lo único que quiere es minimizar el gasto que éstas puedan suponer.
 
 En base al enunciado responda razonadamente a las siguientes cuestiones:
 
@@ -110,9 +171,7 @@ e)  La escuela "El Teatrillo" es seleccionada por el criterio de Laplace por pre
 
 ### Solución
 
-En base al enunciado, sabemos que si el niño deja las clases a la primera semana de haberlas empezado, Ramón tendrá aún así que pagar el primer mes; luego pagaría 22€ en "El teatrillo", 0€ en la escuela "Deluxe" debido a la política del primer mes de prueba gratuito y 100€ en "La máscara".
-Si el niño continúa las clases, existe la posibilidad de que esté obligado a dejarlas después de 3 meses debido a que su familia tenga que mudarse por el trabajo de Ramón. En ese caso, Ramón tendría que pagar 66€ en "El teatrillo", 75€ en la escuela "Deluxe" debido a que tendría que pagar el primer mes por haber superado la prueba, y 100€ en "La máscara".
-Finalmente, si el hijo de Ramón da los 6 meses de clases con normalidad, tendría que pagar 132€ en "El teatrillo", 150€ en la "Deluxe" y 100€ en "La máscara".
+En base al enunciado, sabemos que si el niño deja las clases a la primera semana de haberlas empezado, Ramón tendrá aún así que pagar el primer mes; luego pagaría 22€ en "El teatrillo", 0€ en la escuela "Deluxe" debido a la política del primer mes de prueba gratuito y 100€ en "La máscara". Si el niño continúa las clases, existe la posibilidad de que esté obligado a dejarlas después de 3 meses debido a que su familia tenga que mudarse por el trabajo de Ramón. En ese caso, Ramón tendría que pagar 66€ en "El teatrillo", 75€ en la escuela "Deluxe" debido a que tendría que pagar el primer mes por haber superado la prueba, y 100€ en "La máscara". Finalmente, si el hijo de Ramón da los 6 meses de clases con normalidad, tendría que pagar 132€ en "El teatrillo", 150€ en la "Deluxe" y 100€ en "La máscara".
 
 En base a todo esto construimos la tabla de decisión:
 
@@ -126,6 +185,22 @@ tab_2=crea.tablaX(c(22,66,132,
 
 La tabla de decisión quedaría tal que así:
 
+::: {.content-visible when-format="typst"}
+```{=typst}
+#align(center)[
+  #table(
+    columns: 4,
+    align: center,
+    [], [Abandona], [Mudanza], [Nada],
+    [El teatrillo], [22], [66], [132],
+    [La máscara], [100], [100], [100],
+    [Deluxe], [0], [75], [150]
+  )
+]
+```
+:::
+
+::: {.content-visible when-format="html"}
 $$\begin{array}{|c|c|c|c|c|c|}
 \hline
  & Abandona & Mudanza & Nada\\ \hline
@@ -133,6 +208,7 @@ $$\begin{array}{|c|c|c|c|c|c|}
 \text{La máscara} & 100 & 100 & 100 \\ \hline
 \text{Deluxe} & 0 & 75 & 150 \\ \hline
 \end{array}$$
+:::
 
 Resolvemos el problema conjuntamente con la función que calcula todos los criterios (con favorable=F ya que se trata de costes y no beneficios)
 

@@ -1,18 +1,45 @@
 ---
 title: "Enunciados de los problemas"
 author: "Noel Cabrera Gálvez"
-format: 
- html: default
- pdf: default
-editor: visual
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-fold: false
+    df-print: kable
+    embed-resources: true
+  typst:
+    fig-format: png
+    toc: true
+    number-sections: true
+    df-print: kable
+    papersize: a4
 ---
 
-### Ejercicio 1
+## Ejercicio 1
 
-Dada la siguiente tabla de decisión:
+Una empresa está analizando cuál de las estrategias disponibles ($V_0, V_1, V_2, V_3, V_4$) llevar a cabo en función de los posibles escenarios de mercado que podrían darse en el próximo trimestre ($R_0, R_1, R_2, R_3, R_4$).La matriz de resultados asociada a cada combinación de alternativa y estado de la naturaleza es la siguiente:
 
-$$
-\begin{array}{|c|c|c|c|c|c|}
+::: {.content-visible when-format="typst"}
+```{=typst}
+#align(center)[
+  #table(
+    columns: 6,
+    align: center,
+    [], [$R_0$], [$R_1$], [$R_2$], [$R_3$], [$R_4$],
+    [$V_0$], [1], [5], [2], [3], [3],
+    [$V_1$], [3], [3], [3], [3], [3],
+    [$V_2$], [8], [2], [2], [1], [5],
+    [$V_3$], [4], [5], [4], [3], [2],
+    [$V_4$], [8], [9], [3], [2], [0]
+  )
+]
+```
+:::
+
+::: {.content-visible when-format="html"}
+$$\begin{array}{|c|c|c|c|c|c|}
 \hline
  & R_0 & R_1 & R_2 & R_3 & R_4\\ \hline
 \ V_0 & 1 & 5 & 2 & 3 & 3 \\ \hline
@@ -20,39 +47,34 @@ $$
 \ V_2 & 8 & 2 & 2 & 1 & 5 \\ \hline
 \ V_3 & 4 & 5 & 4 & 3 & 2 \\ \hline
 \ V_4 & 8 & 9 & 3 & 2 & 0 \\ \hline
-\end{array}
-$$
+\end{array}$$
+:::
+
+Al revisar el informe técnico, el analista no dejó especificado si los datos de la matriz corresponden a beneficios (matriz de ingresos/ganancias) o a costes (matriz de pérdidas/gastos).
 Responda razonadamente a las siguientes cuestiones:
 
-a) La alternativa $V_1$ es óptima para alguno de los métodos en situación desfavorable.
+a)  La alternativa $V_1$ es óptima para alguno de los métodos suponiendo que la matriz es de costes.
 
-b) El criterio de Wald elige en situación favorable la misma alternativa que el criterio optimista en situación desfavorable.
+b)  El criterio de Wald elige en situación favorable la misma alternativa que el criterio optimista en situación desfavorable.
 
-c) Al menos uno de los criterios elige la misma alternativa en situación favorable y en situación desfavorable.
+c)  Al menos uno de los criterios elige la misma alternativa independientemente de si la matriz es de costes o de beneficios.
 
-d) La alternativa $V_4$ es óptima según el criterio de Savage en al menos una situación.
+d)  La alternativa $V_4$ es óptima según el criterio de Savage en al menos una situación.
 
-e) Al menos un criterio presenta múltiples alternativas óptimas.
+e)  Al menos un criterio presenta múltiples alternativas óptimas.
 
+## Ejercicio 2
 
-### Ejercicio 2
-
-Ramón tiene un hijo que le ha pedido apuntarse a clases de teatro. Estas clases durarán como máximo hasta que acabe el curso dentro de 6 meses, aunque existe la posibilidad de que, debido al trabajo de Ramón, él y su familia se tengan que mudar dentro de 3 meses y su hijo tenga que dejar las clases. 
-Tiene la opción de apuntarlo a la escuela "El teatrillo" en la que paga una mensualidad de 22€ por las clases. 
-Puede apuntarlo también a la escuela "La máscara" en la que tiene que pagar directamente 100€ por los 6 meses de clases (no reembolsables). 
-Existe una tercera escuela, "Deluxe", de las mejores de la ciudad, en la que ofrecen un primer mes de prueba gratis, tras el cual, si el alumno quiere continuar, tendrá que pagar 25€ mensuales, incluyendo el primer mes de prueba.
-Ramón conoce a su hijo y sabe que es posible que terminen no gustándole las clases y las acabe abandonando a la primera semana. A Ramón no le importa demasiado el bienestar de su hijo pero sabe que negarse a pagarle las clases puede causar problemas en casa, luego lo único que quiere es minimizar el gasto que éstas puedan suponer.
-
+Ramón tiene un hijo que le ha pedido apuntarse a clases de teatro. Estas clases durarán como máximo hasta que acabe el curso dentro de 6 meses, aunque existe la posibilidad de que, debido al trabajo de Ramón, él y su familia se tengan que mudar dentro de 3 meses y su hijo tenga que dejar las clases. Tiene la opción de apuntarlo a la escuela "El teatrillo" en la que paga una mensualidad de 22€ por las clases. Puede apuntarlo también a la escuela "La máscara" en la que tiene que pagar directamente 100€ por los 6 meses de clases (no reembolsables). Existe una tercera escuela, "Deluxe", de las mejores de la ciudad, en la que ofrecen un primer mes de prueba gratis, tras el cual, si el alumno quiere continuar, tendrá que pagar 25€ mensuales, incluyendo el primer mes de prueba. Ramón conoce a su hijo y sabe que es posible que terminen no gustándole las clases y las acabe abandonando a la primera semana. A Ramón no le importa demasiado el bienestar de su hijo pero sabe que negarse a pagarle las clases puede causar problemas en casa, luego lo único que quiere es minimizar el gasto que éstas puedan suponer.
 
 En base al enunciado responda razonadamente a las siguientes cuestiones:
 
+a)  "La máscara" es la escuela seleccionada por el mayor número de criterios.
 
-a) "La máscara" es la escuela seleccionada por el mayor número de criterios.
+b)  Si desde la empresa en la que trabaja Ramón le confirman que, efectivamente, tiene que mudarse con su familia dentro de 3 meses, esto alteraría la escuela seleccionada por el criterio de Wald.
 
-b) Si desde la empresa en la que trabaja Ramón le confirman que, efectivamente, tiene que mudarse con su familia dentro de 3 meses, esto alteraría la escuela seleccionada por el criterio de Wald.
+c)  El criterio de Wald es el único que selecciona a "La máscara".
 
-c) El criterio de Wald es el único que selecciona a "La máscara".
+d)  La política del mes de prueba gratuito ayuda a la escuela "Deluxe" a ser seleccionada por al menos un criterio.
 
-d) La política del mes de prueba gratuito ayuda a la escuela "Deluxe" a ser seleccionada por al menos un criterio.
-
-e) La escuela "El Teatrillo" es seleccionada por el criterio de Laplace por presentar el menor gasto medio mensual.
+e)  La escuela "El Teatrillo" es seleccionada por el criterio de Laplace por presentar el menor gasto medio mensual.
